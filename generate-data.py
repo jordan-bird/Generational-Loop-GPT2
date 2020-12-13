@@ -53,10 +53,12 @@ print(prediction)
 
 run = True
 while(run):
-  end = ("\n".join(prediction.split("\n")[-50:]))
+  end = ("\n".join(prediction.split("\n")[-512:]))
   if "END" in prediction:
     run = False
   prediction = gpt2.generate(sess, run_name='eeg-concentrating-1', prefix=end, return_as_list=True, length=1024)[0]
-  prediction = ("\n".join(prediction.split("\n")[50:])) #remove first 50 lines
+  prediction = ("\n".join(prediction.split("\n")[512:])) #remove first 512 lines, stops it repeating
   prediction = remove_last_line_from_string(prediction) #remove last line, might be broken
   print(prediction)
+  
+print("----FINISHED----")
